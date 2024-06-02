@@ -36,7 +36,6 @@ WORKDIR /srv/api
 COPY --from=BUILD_IMAGE /srv/api/dist ./dist
 COPY --from=BUILD_IMAGE /srv/api/node_modules ./node_modules
 
-
 ENV NODE_ENV production
 EXPOSE 5000
 CMD ["node", "dist/index.js"]

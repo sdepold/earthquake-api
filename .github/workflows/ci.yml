@@ -34,4 +34,5 @@ jobs:
         run: |
           git config --global user.email "sascha@depold.com"
           git config --global user.name "Sascha Depold"
+          echo "${{ secrets.PACKAGES_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           ./bin/build.sh
