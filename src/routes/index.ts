@@ -1,0 +1,14 @@
+import { Router } from "express";
+import * as fs from "fs";
+import * as path from "path";
+
+const router: Router = Router();
+const normalizedPath: string = path.join(__dirname);
+
+fs.readdirSync(normalizedPath).forEach((file) => {
+  if (file.includes(".routes.") && !file.includes("index.")) {
+    router.use("/", require(`./${file}`).router);
+  }
+});
+
+export default router;
