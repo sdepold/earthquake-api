@@ -36,9 +36,6 @@ WORKDIR /srv/api
 COPY --from=BUILD_IMAGE /srv/api/dist ./dist
 COPY --from=BUILD_IMAGE /srv/api/node_modules ./node_modules
 
-# Manually override the cwebp binary installed from libwebp-tools
-RUN ln -sf /usr/bin/cwebp ./node_modules/webp-converter/bin/libwebp_linux/bin/cwebp
-RUN ln -sf /usr/bin/dwebp ./node_modules/webp-converter/bin/libwebp_linux/bin/dwebp
 
 ENV NODE_ENV production
 EXPOSE 5000
