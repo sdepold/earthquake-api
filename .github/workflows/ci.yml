@@ -1,0 +1,37 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [18]
+        postgres-version: [15]
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          always-auth: true
+          registry-url: https://npm.pkg.github.com/
+      - run: npm i
+      - name: Unit Tests
+        run: npm test
+        env:
+          NODE_ENV: test
+  release:
+    name: Build and publish Docker image
+    runs-on: ubuntu-latest
+    needs: [tests]
+    if: |
+      !startsWith(github.event.head_commit.message, '1.') &&
+      github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build and publish the Docker image
+        run: |
+          git config --global user.email "sascha@depold.com"
+          git config --global user.name "Sascha Depold"
+          ./bin/build.sh
