@@ -5,9 +5,9 @@
     "license": "MIT",
     "author": "Sascha Depold",
     "scripts": {
-        "start": "nodemon",
+        "dev": "nodemon",
         "build": "tsc",
-        "prod": "node ./dist",
+        "start": "node ./dist",
         "lint": "tslint -c tslint.json src/**/*.ts",
         "test": "mocha -r ts-node/register ./test/**/*.test.ts"
     },
