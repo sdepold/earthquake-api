@@ -5,11 +5,13 @@
     "license": "MIT",
     "author": "Sascha Depold",
     "scripts": {
-        "dev": "nodemon",
-        "build": "tsc",
-        "start": "node ./dist",
+        "start": "nodemon",
+        "build": "rimraf dist && tsc",
+        "prod": "node ./dist",
         "lint": "tslint -c tslint.json src/**/*.ts",
-        "test": "mocha -r ts-node/register ./test/**/*.test.ts"
+        "test": "mocha -r ts-node/register ./test/**/*.test.ts",
+        "ts-check": "tsc --project tsconfig.json",
+        "add-build": "git add dist"
     },
     "dependencies": {
         "body-parser": "^1.19.0",
@@ -30,8 +32,15 @@
         "chai": "^4.2.0",
         "mocha": "^6.2.0",
         "nodemon": "^1.19.1",
+        "pre-commit": "^1.2.2",
+        "rimraf": "^5.0.7",
         "ts-lint": "^4.5.1",
         "ts-node": "^8.3.0",
         "typescript": "^3.5.3"
-    }
+    },
+    "pre-commit": [
+        "ts-check",
+        "build",
+        "add-build"
+    ]
 }
