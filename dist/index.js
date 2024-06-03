@@ -11,4 +11,3 @@ const app = new App_1.default(routes_1.default).express;
 app.listen(port, () => {
     console.log(`API is listening on http://localhost:${port}`);
 });
-//# sourceMappingURL=index.js.map

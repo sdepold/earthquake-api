@@ -10,4 +10,3 @@ function queryEarthquakes(query) {
     return node_fetch_1.default(url, { headers: { Accept: "application/json" } }).then((response) => response.json());
 }
 exports.queryEarthquakes = queryEarthquakes;
-//# sourceMappingURL=earthquake.services.js.map

@@ -1,11 +1,11 @@
 import { Request, Response, Router } from "express";
-import fs from "fs";
-import path from "path";
+import { readdirSync } from "fs";
+import { join } from "path";
 
 const router: Router = Router();
-const normalizedPath: string = path.join(__dirname);
+const normalizedPath: string = join(__dirname);
 
-fs.readdirSync(normalizedPath).forEach((file) => {
+readdirSync(normalizedPath).forEach((file) => {
   if (file.includes(".routes.") && !file.includes("index.")) {
     router.use("/", require(`./${file}`).router);
   }

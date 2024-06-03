@@ -16,4 +16,3 @@ router.get("/earthquakes", (req, res) => __awaiter(this, void 0, void 0, functio
     const result = yield earthquake_services_1.queryEarthquakes(req.query);
     res.json(result);
 }));
-//# sourceMappingURL=earthquakes.routes.js.map
