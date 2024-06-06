@@ -1,4 +1,5 @@
 import { Request } from "express";
+import { Continent, continents } from "../config/continents";
 
 export function requestToParams(req: Request) {
   const params = { ...req.query };
@@ -19,5 +20,34 @@ export function requestToParams(req: Request) {
     params.starttime = time.toISOString().split("T")[0];
   }
 
+  if (params.continent) {
+    const bbox = continentToBBox(params.continent as string);
+
+    params.minlatitude = bbox.minlatitude;
+    params.maxlatitude = bbox.maxlatitude;
+    params.minlongitude = bbox.minlongitude;
+    params.maxlongitude = bbox.maxlongitude;
+
+    delete params.continent;
+  }
+
   return params;
+}
+
+type BoundingBox = {
+  minlatitude: number;
+  minlongitude: number;
+  maxlatitude: number;
+  maxlongitude: number;
+};
+export function continentToBBox(continent: string): BoundingBox | null {
+  const continentConfig = continents.find(
+    (c: Continent) => c.slug === continent
+  );
+
+  if (continentConfig) {
+    return continentConfig.bbox;
+  }
+
+  return null;
 }
