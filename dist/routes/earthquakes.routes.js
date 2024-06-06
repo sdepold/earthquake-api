@@ -10,13 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const earthquake_services_1 = require("../services/earthquake.services");
+const query_params_1 = require("../utils/query-params");
 const router = express_1.Router();
 exports.router = router;
 router.get("/earthquakes", (req, res) => __awaiter(this, void 0, void 0, function* () {
-    const result = yield earthquake_services_1.queryEarthquakes(req.query);
+    const result = yield earthquake_services_1.queryEarthquakes(query_params_1.requestToParams(req));
     res.json(result);
 }));
 router.get("/earthquakes/:id", (req, res) => __awaiter(this, void 0, void 0, function* () {
-    const result = yield earthquake_services_1.queryEarthquakes(Object.assign({}, req.query, { eventid: req.params.id }));
+    const result = yield earthquake_services_1.queryEarthquakes(query_params_1.requestToParams(req));
     res.json(result);
 }));
