@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const continents_1 = require("../config/continents");
 function requestToParams(req) {
     const params = Object.assign({}, req.query);
     if (req.params.id) {
@@ -14,6 +15,22 @@ function requestToParams(req) {
         time.setDate(time.getDate() - 1);
         params.starttime = time.toISOString().split("T")[0];
     }
+    if (params.continent) {
+        const bbox = continentToBBox(params.continent);
+        params.minlatitude = bbox.minlatitude;
+        params.maxlatitude = bbox.maxlatitude;
+        params.minlongitude = bbox.minlongitude;
+        params.maxlongitude = bbox.maxlongitude;
+        delete params.continent;
+    }
     return params;
 }
 exports.requestToParams = requestToParams;
+function continentToBBox(continent) {
+    const continentConfig = continents_1.continents.find((c) => c.slug === continent);
+    if (continentConfig) {
+        return continentConfig.bbox;
+    }
+    return null;
+}
+exports.continentToBBox = continentToBBox;
