@@ -16,3 +16,7 @@ router.get("/earthquakes", (req, res) => __awaiter(this, void 0, void 0, functio
     const result = yield earthquake_services_1.queryEarthquakes(req.query);
     res.json(result);
 }));
+router.get("/earthquakes/:id", (req, res) => __awaiter(this, void 0, void 0, function* () {
+    const result = yield earthquake_services_1.queryEarthquakes(Object.assign({}, req.query, { eventid: req.params.id }));
+    res.json(result);
+}));
