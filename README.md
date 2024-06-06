@@ -4,9 +4,17 @@ API is using https://earthquake.usgs.gov/fdsnws/event/1/ under the hood. All par
 
 ## Endpoints
 
+### GET /continents
+
+Returns list of all supported continents and their respective bounding box.
+
 ### GET /earthquakes
 
 Returns all earthquakes for the last 24 hours. The timeframe can be adjusted using the `starttime` and `endtime` query params.
+
+### GET /earthquakes?continent=europe
+
+Returns earthquakes in a certain continent's bounding box.
 
 ### GET /earthquakes/:id
 
