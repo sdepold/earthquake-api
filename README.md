@@ -13,6 +13,9 @@ Returns list of all supported continents and their respective bounding box.
 Returns all earthquakes for the last 24 hours. The timeframe can be adjusted using the `starttime` and `endtime` query params.
 Please note that this endpoint is artificially delaying a response based on the amount of returned earthquakes. You can disable this by adding the query param `delay=0`.
 
+- Pagination: /earthquakes?limit=50&offset=25
+- Sorting: /earthquakes?orderby=magnitude
+
 ### GET /earthquakes?continent=europe
 
 Returns earthquakes in a certain continent's bounding box.
