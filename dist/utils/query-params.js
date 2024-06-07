@@ -23,6 +23,7 @@ function requestToParams(req) {
         params.maxlongitude = bbox.maxlongitude;
         delete params.continent;
     }
+    delete params.delay;
     return params;
 }
 exports.requestToParams = requestToParams;

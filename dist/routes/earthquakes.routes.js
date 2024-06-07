@@ -11,10 +11,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const earthquake_services_1 = require("../services/earthquake.services");
 const query_params_1 = require("../utils/query-params");
+const time_1 = require("../utils/time");
 const router = express_1.Router();
 exports.router = router;
 router.get("/earthquakes", (req, res) => __awaiter(this, void 0, void 0, function* () {
     const result = yield earthquake_services_1.queryEarthquakes(query_params_1.requestToParams(req));
+    const delay = req.query.delay ? Number(req.query.delay) : 25;
+    yield time_1.wait(result.metadata.count * delay);
     res.json(result);
 }));
 router.get("/earthquakes/:id", (req, res) => __awaiter(this, void 0, void 0, function* () {

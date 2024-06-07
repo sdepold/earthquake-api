@@ -31,6 +31,8 @@ export function requestToParams(req: Request) {
     delete params.continent;
   }
 
+  delete params.delay;
+
   return params;
 }
 
