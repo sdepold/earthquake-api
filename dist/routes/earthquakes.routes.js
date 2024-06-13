@@ -10,13 +10,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const earthquake_services_1 = require("../services/earthquake.services");
+const pagination_1 = require("../utils/pagination");
 const query_params_1 = require("../utils/query-params");
 const time_1 = require("../utils/time");
 const router = express_1.Router();
 exports.router = router;
 router.get("/earthquakes", (req, res) => __awaiter(this, void 0, void 0, function* () {
-    const result = yield earthquake_services_1.queryEarthquakes(query_params_1.requestToParams(req));
+    const params = query_params_1.requestToParams(req);
+    const result = yield earthquake_services_1.queryEarthquakes(params);
     const delay = req.query.delay ? Number(req.query.delay) : 25;
+    yield pagination_1.addTotalCount(result, params);
     yield time_1.wait(result.metadata.count * delay);
     res.json(result);
 }));

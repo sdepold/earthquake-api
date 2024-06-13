@@ -24,6 +24,7 @@ export type Metadata = {
   status: number;
   api: string;
   count: number;
+  totalCount?: number;
 };
 
 export type ApiResponse = {
