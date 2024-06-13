@@ -23,8 +23,10 @@ const earthquake_services_1 = require("../services/earthquake.services");
 function addTotalCount(response, params) {
     return __awaiter(this, void 0, void 0, function* () {
         const { offset, limit } = params, rest = __rest(params, ["offset", "limit"]);
-        const result = yield earthquake_services_1.queryEarthquakes(rest);
-        response.metadata.totalCount = result.metadata.count;
+        if (offset !== undefined || limit !== undefined) {
+            const result = yield earthquake_services_1.queryEarthquakes(rest);
+            response.metadata.totalCount = result.metadata.count;
+        }
         return response;
     });
 }

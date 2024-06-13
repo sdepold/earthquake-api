@@ -6,9 +6,11 @@ export async function addTotalCount(
   params: any
 ): Promise<ApiResponse> {
   const { offset, limit, ...rest } = params;
-  const result = await queryEarthquakes(rest);
 
-  response.metadata.totalCount = result.metadata.count;
+  if (offset !== undefined || limit !== undefined) {
+    const result = await queryEarthquakes(rest);
+    response.metadata.totalCount = result.metadata.count;
+  }
 
   return response;
 }
